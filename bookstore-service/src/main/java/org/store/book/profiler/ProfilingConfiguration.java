@@ -20,13 +20,6 @@ public class ProfilingConfiguration {
         return new PerformanceMonitorInterceptor();
     }
 
-//    @Bean
-//    public Advisor performanceMonitorAdvisor() {
-//        var pointcut = new AspectJExpressionPointcut();
-//        pointcut.setExpression("org.store.book.profiler.ProfilingConfiguration.monitor()");
-//        return new DefaultPointcutAdvisor(pointcut, interceptor());
-//    }
-
     @Bean
     public Advisor performanceMonitorAdvisor() {
         var pointcut = new AspectJExpressionPointcut();

@@ -18,9 +18,7 @@
     <start-class>org.store.book.BookStoreApplication</start-class>
     <java.version>17</java.version>
   </properties>
-
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot</artifactId>
@@ -34,11 +32,6 @@
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-      <version>${spring-cloud-starter-netflix-eureka-client.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -106,13 +99,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/com.athaydes.javanna/javanna -->
     <dependency>
       <groupId>com.athaydes.javanna</groupId>
       <artifactId>javanna</artifactId>
       <version>1.1</version>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-aop</artifactId>
@@ -164,60 +155,6 @@
             </execution>
           </executions>
         </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>copy-resources-1</id>
-              <!-- here the phase you need -->
-              <phase>validate</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <outputDirectory>${basedir}/target/dockerfile</outputDirectory>
-                <resources>
-                  <resource>
-                    <directory>src/main/docker</directory>
-                    <filtering>true</filtering>
-                  </resource>
-                </resources>
-                <nonFilteredFileExtensions>
-                  <nonFilteredFileExtension>jks</nonFilteredFileExtension>
-                </nonFilteredFileExtensions>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>com.spotify</groupId>
-          <artifactId>docker-maven-plugin</artifactId>
-          <version>${spotify.version}</version>
-          <configuration>
-            <imageName>${docker.image.name}:${docker.image.tag}</imageName>
-            <dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>
-            <buildArgs>
-              <JAR_FILE>${project.build.finalName}.war</JAR_FILE>
-            </buildArgs>
-            <resources>
-              <resource>
-                <targetPath>/</targetPath>
-                <directory>${project.build.directory}</directory>
-                <include>${project.build.finalName}.war</include>
-              </resource>
-            </resources>
-          </configuration>
-          <executions>
-            <execution>
-              <id>default</id>
-              <phase>install</phase>
-              <goals>
-                <goal>build</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
       </plugins>
   </build>
   <profiles>
@@ -229,20 +166,6 @@
       <build>
         <filters>
           <filter>src/main/resources/default/db.properties</filter>
-        </filters>
-        <resources>
-          <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-          </resource>
-        </resources>
-      </build>
-    </profile>
-    <profile>
-      <id>Dev</id>
-      <build>
-        <filters>
-          <filter>src/main/resources/dev/db.properties</filter>
         </filters>
         <resources>
           <resource>

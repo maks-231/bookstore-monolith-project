@@ -1,24 +1,50 @@
 spring:
+  cloud:
+    config:
+      import-check:
+        enabled: false
   main:
     lazy-initialization: true
   application:
     name: bookstoreservice
-  # The property server will take default property files
-  config:
-    import: optional:configserver:http://localhost:8071
-
-#logging:
-#  level:
-#    org:
-#      springframework:
-#        aop:
-#          interceptor:
-#            PerformanceMonitorInterceptor: TRACE
-
+  datasource:
+    url: jdbc:postgresql://localhost:5831/book-store?prepareThreshold=0
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+    cloud:
+      service-registry:
+        auto-registration:
+          enabled: false
 logging:
+  group:
+    tomcat: "org.apache.catalina,org.apache.coyote,org.apache.tomcat"
   level:
+    level:
+      root: "warn"
     org:
+      springframework:
+        web: "debug"
       store:
         book:
           profiler:
             CustomPerformanceMonitorInterceptor: TRACE
+hibernate:
+  show_sql: true
+  dialect: org.hibernate.dialect.PostgreSQLDialect
+  batch.size: 200
+  hbm2ddl.auto: update
+management:
+  endpoint:
+    health:
+      diskspace:
+        enabled: true
+    beans:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"

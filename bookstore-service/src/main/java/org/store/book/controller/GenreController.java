@@ -16,7 +16,6 @@ import org.store.book.repository.GenreRepository;
 import java.util.List;
 
 import jakarta.annotation.Resource;
-import jakarta.ws.rs.Path;
 
 @RestController
 @RequestMapping("/genre")

@@ -5,37 +5,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.bookstore</groupId>
-  <artifactId>microservices</artifactId>
+  <artifactId>bookstore-monolith</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
     <module>bookstore-service</module>
-    <module>eureka-server</module>
-    <module>config-server</module>
-    <module>gateway-server</module>
   </modules>
-
-  <profiles>
-    <profile>
-      <id>Dev</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <env>dev</env>
-        <spring.profiles.active>dev</spring.profiles.active>
-      </properties>
-    </profile>
-
-    <profile>
-      <id>QA</id>
-      <properties>
-        <env>qa</env>
-        <spring.profiles.active>qa</spring.profiles.active>
-      </properties>
-    </profile>
-  </profiles>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
@@ -49,16 +25,9 @@
     <spring-data-relational.version>3.2.12</spring-data-relational.version>
     <starter-bootstrap.version>4.1.2</starter-bootstrap.version>
     <config.version>4.1.1</config.version>
-    <spring-cloud.version>2023.0.2</spring-cloud.version>
     <spring-boot-autoconfigure.version>3.2.12</spring-boot-autoconfigure.version>
     <spring-boot-starter-web.version>3.2.12</spring-boot-starter-web.version>
-<!--    <spring-boot-starter-oauth2-resource-server.version>3.2.12</spring-boot-starter-oauth2-resource-server.version>-->
-<!--    <spring-boot-starter-oauth2-client.version>3.2.12</spring-boot-starter-oauth2-client.version>-->
     <spring-boot-starter-security.version>3.28.18</spring-boot-starter-security.version>
-    <spring-cloud-starter-netflix-eureka.version>4.1.1</spring-cloud-starter-netflix-eureka.version>
-    <spring-cloud-starter-netflix-eureka-client.version>4.1.1</spring-cloud-starter-netflix-eureka-client.version>
-    <spring-cloud-starter-netflix-eureka-server.version>4.1.1</spring-cloud-starter-netflix-eureka-server.version>
-    <spring-cloud-starter-gateway.version>4.1.1</spring-cloud-starter-gateway.version>
     <spring-webflux.version>6.2.0</spring-webflux.version>
     <gson.version>2.10.1</gson.version>
     <jackson-core.version>2.15.4</jackson-core.version>
@@ -70,12 +39,6 @@
   </properties>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-config -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-config</artifactId>
-      <version>${config.version}</version>
-    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
@@ -91,18 +54,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>2.0.9</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>

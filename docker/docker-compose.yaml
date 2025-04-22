@@ -1,9 +1,9 @@
 version: '3.3'
 services:
   book-store-database:
-    image: postgres:16
+    image: postgres:16-alpine
     ports:
-      - "5832:5432"
+      - "5831:5432"
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
@@ -22,60 +22,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  configserver:
-    image: configserver:alpine
-    ports:
-      - "8071:8071"
-    networks:
-      backend:
-        aliases:
-          - "configserver"
-  eurekaserver:
-    image: eurekaserver:alpine
-    ports:
-      - "8761:8761"
-#    depends_on:
-#      configserver:
-#        condition: service_started
-    networks:
-      backend:
-        aliases:
-          - "eurekaserver"
-  gatewayserver:
-    image: gatewayserver:alpine
-    ports:
-      - "8081:8081"
-#    depends_on:
-#      configserver:
-#        condition: service_started
-#      eurekaserver:
-#        condition: service_started
-#      keycloak:
-#        condition: service_started
-    networks:
-      backend:
-        aliases:
-          - "gatewayserver"
-  bookstoreservice:
-    image: book-store:alpine
-    environment:
-        CONFIGSERVER_URI: "http://configserver:8071"
-        CONFIGSERVER_PORT: "8071"
-#    depends_on:
-#        configserver:
-#          condition: service_started
-#        eurekaserver:
-#          condition: service_started
-#        gatewayserver:
-#          condition: service_started
-    ports:
-        - "8080:8080"
-    links:
-        - eurekaserver
-        - configserver
-    networks:
-        - backend
 networks:
   backend:
     external: true
-#    driver: bridge

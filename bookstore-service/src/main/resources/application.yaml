@@ -18,6 +18,11 @@ spring:
       service-registry:
         auto-registration:
           enabled: false
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+  api-docs:
+        path: /api-docs
 logging:
   group:
     tomcat: "org.apache.catalina,org.apache.coyote,org.apache.tomcat"
